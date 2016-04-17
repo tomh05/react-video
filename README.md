@@ -35,7 +35,7 @@ Using the component is simpler than installing. See an example with [browserify]
 
   // Video from Youtube
   React.render(
-    <Video from='youtube' videoId={videoId} />,
+    <Video from='youtube' videoId={videoId} title="Hello World"/>,
     $mountNode
   );
 
