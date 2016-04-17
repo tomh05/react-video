@@ -69,15 +69,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	var Spinner = __webpack_require__(5);
 
 	module.exports = React.createClass({
-	  displayName: 'Video',
+	  displayName: "Video",
 	  propTypes: {
-	    from: React.PropTypes.oneOf(['youtube', 'vimeo']),
+	    from: React.PropTypes.oneOf(["youtube", "vimeo"]),
 	    videoId: React.PropTypes.string.isRequired,
 	    onError: React.PropTypes.func
 	  },
 	  getDefaultProps:function() {
 	    return {
-	      className: 'video'
+	      className: "video"
 	    };
 	  },
 	  getInitialState:function() {
@@ -88,10 +88,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	  },
 	  isYoutube:function() {
-	    return this.props.from === 'youtube' || isNaN(this.props.videoId);
+	    return this.props.from === "youtube" || isNaN(this.props.videoId);
 	  },
 	  isVimeo:function() {
-	    return this.props.from === 'vimeo' || !isNaN(this.props.videoId);
+	    return this.props.from === "vimeo" || !isNaN(this.props.videoId);
 	  },
 	  componentWillReceiveProps:function(nextProps) {
 	    if (nextProps.className !== this.props.className || nextProps.from !== this.props.from || nextProps.videoId !== this.props.videoId) {
@@ -118,8 +118,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return (
 	      React.createElement("div", {className: this.props.className}, 
 	        !this.state.imageLoaded && React.createElement(Spinner, null), 
+	        "if (this.props.title) ", 
+	          this.renderTitle(this.props.title), 
+	        
 	        this.renderImage(), 
 	        this.renderIframe()
+	      )
+	    );
+	  },
+	  renderTitle:function(title) {
+	    var style = {
+	      "z-index":1,
+	      "position": "absolute",
+	      "right":0,
+	      "top":0
+	    };
+
+	    return (
+	      React.createElement("div", {className: "video-title", style: this.props.titleStyle}, 
+	        React.createElement("h1", null, title)
 	      )
 	    );
 	  },
@@ -138,9 +155,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 	  renderIframe:function() {
 	    var embedVideoStyle = {
-	      display: this.state.showingVideo ? 'block' : 'none',
-	      width: '100%',
-	      height: '100%'
+	      display: this.state.showingVideo ? "block" : "none",
+	      width: "100%",
+	      height: "100%"
 	    };
 
 	    if (this.state.showingVideo) {

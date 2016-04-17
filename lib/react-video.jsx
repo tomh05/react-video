@@ -1,19 +1,19 @@
-var React = require('react');
-var classSet = require('../utils/classSet');
-var ajax = require('../utils/ajax');
-var PlayButton = require('./components/play-button');
-var Spinner = require('./components/spinner');
+var React = require("react");
+var classSet = require("../utils/classSet");
+var ajax = require("../utils/ajax");
+var PlayButton = require("./components/play-button");
+var Spinner = require("./components/spinner");
 
 module.exports = React.createClass({
-  displayName: 'Video',
+  displayName: "Video",
   propTypes: {
-    from: React.PropTypes.oneOf(['youtube', 'vimeo']),
+    from: React.PropTypes.oneOf(["youtube", "vimeo"]),
     videoId: React.PropTypes.string.isRequired,
     onError: React.PropTypes.func
   },
   getDefaultProps() {
     return {
-      className: 'video'
+      className: "video"
     };
   },
   getInitialState() {
@@ -24,10 +24,10 @@ module.exports = React.createClass({
     };
   },
   isYoutube() {
-    return this.props.from === 'youtube' || isNaN(this.props.videoId);
+    return this.props.from === "youtube" || isNaN(this.props.videoId);
   },
   isVimeo() {
-    return this.props.from === 'vimeo' || !isNaN(this.props.videoId);
+    return this.props.from === "vimeo" || !isNaN(this.props.videoId);
   },
   componentWillReceiveProps(nextProps) {
     if (nextProps.className !== this.props.className || nextProps.from !== this.props.from || nextProps.videoId !== this.props.videoId) {
@@ -54,8 +54,25 @@ module.exports = React.createClass({
     return (
       <div className={this.props.className} >
         {!this.state.imageLoaded && <Spinner />}
+        if (this.props.title) {
+          this.renderTitle(this.props.title)
+        }
         {this.renderImage()}
         {this.renderIframe()}
+      </div>
+    );
+  },
+  renderTitle(title) {
+    var style = {
+      "z-index":1,
+      "position": "absolute",
+      "right":0,
+      "top":0
+    };
+
+    return (
+      <div className='video-title' style={this.props.titleStyle}>
+        <h1>{title}</h1>
       </div>
     );
   },
@@ -74,9 +91,9 @@ module.exports = React.createClass({
   },
   renderIframe() {
     var embedVideoStyle = {
-      display: this.state.showingVideo ? 'block' : 'none',
-      width: '100%',
-      height: '100%'
+      display: this.state.showingVideo ? "block" : "none",
+      width: "100%",
+      height: "100%"
     };
 
     if (this.state.showingVideo) {

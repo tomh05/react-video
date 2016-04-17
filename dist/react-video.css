@@ -22,6 +22,12 @@
 .video iframe {
   border: 0;
 }
+.video-title {
+  z-index: 1;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
 .video-image {
   background-position: center center;
   background-size: 100% auto;
