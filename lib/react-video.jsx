@@ -109,8 +109,11 @@ module.exports = React.createClass({
     ev.preventDefault();
   },
   getIframeUrl() {
-    if (this.isYoutube()) {
-      return `//youtube.com/embed/${this.props.videoId}?autoplay=1`
+    if (this.isYoutube()) { //videoseries?list=
+      if (this.props.videoId)
+        return `//youtube.com/embed/${this.props.videoId}?autoplay=1`
+      else if(this.props.playlistId)
+        return `//youtube.com/embed?listType=playlist&list=${this.props.playlistId}&disablekb=1&autoplay=1&showinfo=1`
     }
     else if (this.isVimeo()) {
       return `//player.vimeo.com/video/${this.props.videoId}?autoplay=1`
