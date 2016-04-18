@@ -118,8 +118,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return (
 	      React.createElement("div", {className: this.props.className}, 
 	        !this.state.imageLoaded && React.createElement(Spinner, null), 
-	        "if (this.props.title) ", 
-	          this.renderTitle(this.props.title), 
+	         (this.props.title)&&
+	            this.renderTitle(this.props.title), 
 	        
 	        this.renderImage(), 
 	        this.renderIframe()
@@ -157,7 +157,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var embedVideoStyle = {
 	      display: this.state.showingVideo ? "block" : "none",
 	      width: "100%",
-	      height: "100%"
+	      height: "100%",
+	      backgroundImage:("url(" + this.state.thumb + ")")
 	    };
 
 	    if (this.state.showingVideo) {

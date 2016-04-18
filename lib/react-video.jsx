@@ -54,8 +54,8 @@ module.exports = React.createClass({
     return (
       <div className={this.props.className} >
         {!this.state.imageLoaded && <Spinner />}
-        if (this.props.title) {
-          this.renderTitle(this.props.title)
+        { (this.props.title)&&
+            this.renderTitle(this.props.title)
         }
         {this.renderImage()}
         {this.renderIframe()}
@@ -93,7 +93,8 @@ module.exports = React.createClass({
     var embedVideoStyle = {
       display: this.state.showingVideo ? "block" : "none",
       width: "100%",
-      height: "100%"
+      height: "100%",
+      backgroundImage:`url(${this.state.thumb})`
     };
 
     if (this.state.showingVideo) {
