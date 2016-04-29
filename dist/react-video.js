@@ -185,7 +185,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  },
 	  fetchYoutubeData:function() {
-	    debugger;
 	    var id = this.props.videoId;
 	    var picture = this.props.image ? this.props.image : ("http://img.youtube.com/vi/" + id + "/1.jpg");
 	    this.setState({
