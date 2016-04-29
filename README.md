@@ -111,7 +111,9 @@ Property | Type | Default | Required | Description
 from | `String` | none | no | Video source: `youtube` or `vimeo`. Leave empty and the service will be detected for you by looking a the id.
 videoId | `String` | none | no | The video ID
 onError | `Function` | yes | no | Callback function if the video can't be loaded
-
+image | `string`(path)| yes | no | An image for the cover - default is the video first second image
+playlistId | `string` | none | no | Show playlist not just a video
+title | `string` | none | no | Add a title to the video cover
 ## Contributing
 
 Anyone can help make this project better - check out the [Contributing guide](CONTRIBUTING.md)!
