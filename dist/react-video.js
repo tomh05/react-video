@@ -72,7 +72,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  displayName: "Video",
 	  propTypes: {
 	    from: React.PropTypes.oneOf(["youtube", "vimeo"]),
-	    videoId: React.PropTypes.string.isRequired,
+	    videoId: React.PropTypes.string,
 	    onError: React.PropTypes.func
 	  },
 	  getDefaultProps:function() {
@@ -116,7 +116,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 	  render:function() {
 	    return (
-	      React.createElement("div", {className: this.props.className}, 
+	      React.createElement("div", {className: this.props.className+" video"}, 
 	        !this.state.imageLoaded && React.createElement(Spinner, null), 
 	         (this.props.title)&&
 	            this.renderTitle(this.props.title), 
