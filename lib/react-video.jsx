@@ -122,7 +122,7 @@ module.exports = React.createClass({
   },
   fetchYoutubeData() {
     var id = this.props.videoId;
-    var picture = this.props.image ? this.props.image : `http://img.youtube.com/vi/${id}/1.jpg`;
+    var picture = this.props.image ? this.props.image : `http://img.youtube.com/vi/${id}/0.jpg`;
     this.setState({
       thumb: picture,
       imageLoaded: true
