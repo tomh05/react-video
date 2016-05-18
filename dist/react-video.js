@@ -216,15 +216,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	  },
 	  fetchVineData:function() {
-	    console.log("fetching vine");
 	    var id = this.props.videoId;
 	    var that = this;
 
 	    ajax.get({
 	      url: ("//vine.co/oembed.json?url=https%3A%2F%2Fvine.co%2Fv%2F" + id),
 	      onSuccess:function(err, res) {
-	        console.log("got ajax");
-	        console.log(res);
 	        that.setState({
 	          thumb: res.thumbnail_url,
 	          imageLoaded: true
