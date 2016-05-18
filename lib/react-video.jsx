@@ -7,7 +7,7 @@ var Spinner = require("./components/spinner");
 module.exports = React.createClass({
   displayName: "Video",
   propTypes: {
-    from: React.PropTypes.oneOf(["youtube", "vimeo"]),
+    from: React.PropTypes.oneOf(["youtube", "vimeo", "vine"]),
     videoId: React.PropTypes.string,
     onError: React.PropTypes.func
   },
@@ -29,6 +29,9 @@ module.exports = React.createClass({
   isVimeo() {
     return this.props.from === "vimeo" || !isNaN(this.props.videoId);
   },
+  isVine() {
+    return this.props.from === "vine" || isNaN(this.props.videoId);
+  },
   componentWillReceiveProps(nextProps) {
     if (nextProps.className !== this.props.className || nextProps.from !== this.props.from || nextProps.videoId !== this.props.videoId) {
       this.setState({
@@ -42,12 +45,14 @@ module.exports = React.createClass({
     if (!this.state.imageLoaded) {
       this.isYoutube() && this.fetchYoutubeData();
       this.isVimeo() && this.fetchVimeoData();
+      this.isVine() && this.fetchVineData();
     }
   },
   componentDidUpdate() {
     if (!this.state.imageLoaded) {
       this.isYoutube() && this.fetchYoutubeData();
       this.isVimeo() && this.fetchVimeoData();
+      this.isVine() && this.fetchVineData();
     }
   },
   render() {
@@ -119,6 +124,9 @@ module.exports = React.createClass({
     else if (this.isVimeo()) {
       return `//player.vimeo.com/video/${this.props.videoId}?autoplay=1`
     }
+    else if (this.isVine()) {
+      return `//vine.co/v/${this.props.videoId}/embed/simple`
+    }
   },
   fetchYoutubeData() {
     var id = this.props.videoId;
@@ -137,6 +145,21 @@ module.exports = React.createClass({
       onSuccess(err, res) {
         that.setState({
           thumb: res[0].thumbnail_large,
+          imageLoaded: true
+        });
+      },
+      onError: that.props.onError
+    });
+  },
+  fetchVineData() {
+    var id = this.props.videoId;
+    var that = this;
+
+    ajax.get({
+      url: `//vine.co/oembed.json?url=https%3A%2F%2Fvine.co%2Fv%2F${id}`,
+      onSuccess(err, res) {
+        that.setState({
+          thumb: res.thumbnail_url,
           imageLoaded: true
         });
       },
