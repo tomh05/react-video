@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = React.createClass({
 	  displayName: "Video",
 	  propTypes: {
-	    from: React.PropTypes.oneOf(["youtube", "vimeo"]),
+	    from: React.PropTypes.oneOf(["youtube", "vimeo", "vine"]),
 	    videoId: React.PropTypes.string,
 	    onError: React.PropTypes.func
 	  },
@@ -93,6 +93,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  isVimeo:function() {
 	    return this.props.from === "vimeo" || !isNaN(this.props.videoId);
 	  },
+	  isVine:function() {
+	    return this.props.from === "vine" || isNaN(this.props.videoId);
+	  },
 	  componentWillReceiveProps:function(nextProps) {
 	    if (nextProps.className !== this.props.className || nextProps.from !== this.props.from || nextProps.videoId !== this.props.videoId) {
 	      this.setState({
@@ -106,12 +109,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (!this.state.imageLoaded) {
 	      this.isYoutube() && this.fetchYoutubeData();
 	      this.isVimeo() && this.fetchVimeoData();
+	      this.isVine() && this.fetchVineData();
 	    }
 	  },
 	  componentDidUpdate:function() {
 	    if (!this.state.imageLoaded) {
 	      this.isYoutube() && this.fetchYoutubeData();
 	      this.isVimeo() && this.fetchVimeoData();
+	      this.isVine() && this.fetchVineData();
 	    }
 	  },
 	  render:function() {
@@ -183,10 +188,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    else if (this.isVimeo()) {
 	      return ("//player.vimeo.com/video/" + this.props.videoId + "?autoplay=1")
 	    }
+	    else if (this.isVine()) {
+	      return ("//vine.co/v/" + this.props.videoId + "/embed/simple")
+	    }
 	  },
 	  fetchYoutubeData:function() {
 	    var id = this.props.videoId;
-	    var picture = this.props.image ? this.props.image : ("http://img.youtube.com/vi/" + id + "/1.jpg");
+	    var picture = this.props.image ? this.props.image : ("http://img.youtube.com/vi/" + id + "/0.jpg");
 	    this.setState({
 	      thumb: picture,
 	      imageLoaded: true
@@ -201,6 +209,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	      onSuccess:function(err, res) {
 	        that.setState({
 	          thumb: res[0].thumbnail_large,
+	          imageLoaded: true
+	        });
+	      },
+	      onError: that.props.onError
+	    });
+	  },
+	  fetchVineData:function() {
+	    var id = this.props.videoId;
+	    var that = this;
+
+	    ajax.get({
+	      url: ("//vine.co/oembed.json?url=https%3A%2F%2Fvine.co%2Fv%2F" + id),
+	      onSuccess:function(err, res) {
+	        that.setState({
+	          thumb: res.thumbnail_url,
 	          imageLoaded: true
 	        });
 	      },
