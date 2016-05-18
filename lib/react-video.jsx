@@ -24,13 +24,13 @@ module.exports = React.createClass({
     };
   },
   isYoutube() {
-    return this.props.from === "youtube" || isNaN(this.props.videoId);
+    return this.props.from === "youtube";
   },
   isVimeo() {
-    return this.props.from === "vimeo" || !isNaN(this.props.videoId);
+    return this.props.from === "vimeo";
   },
   isVine() {
-    return this.props.from === "vine" || isNaN(this.props.videoId);
+    return this.props.from === "vine";
   },
   componentWillReceiveProps(nextProps) {
     if (nextProps.className !== this.props.className || nextProps.from !== this.props.from || nextProps.videoId !== this.props.videoId) {
