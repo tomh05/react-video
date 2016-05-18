@@ -88,13 +88,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	  },
 	  isYoutube:function() {
-	    return this.props.from === "youtube" || isNaN(this.props.videoId);
+	    return this.props.from === "youtube";
 	  },
 	  isVimeo:function() {
-	    return this.props.from === "vimeo" || !isNaN(this.props.videoId);
+	    return this.props.from === "vimeo";
 	  },
 	  isVine:function() {
-	    return this.props.from === "vine" || isNaN(this.props.videoId);
+	    return this.props.from === "vine";
 	  },
 	  componentWillReceiveProps:function(nextProps) {
 	    if (nextProps.className !== this.props.className || nextProps.from !== this.props.from || nextProps.videoId !== this.props.videoId) {
